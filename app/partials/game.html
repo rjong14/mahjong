@@ -1,0 +1,30 @@
+<div class="row">
+    <h1> Game</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+                <div class="panel panel-default chat">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Active Games</div>
+                    <div class="panel-body">
+                        <ul>
+                            <li ng-repeat="game in gameCtrl.games" >
+                                <strong>Game: {{game.layout}}</strong>
+                                <small>Creator: {{game.createdBy.name}}</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="panel panel-teal">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span>Game Board</div>
+                    <div class="panel-body">
+
+                    </div>
+
+                </div>
+            </div>
+
+</div>
