@@ -872,3 +872,15 @@ h1.page-header {
 .panel {
  min-height: 500px;
 }
+
+.gamelist ul {
+	list-style: none;
+	margin: -15px;
+	padding: 15px;
+}
+
+.gamelist ul li {
+	margin-bottom: 10px;
+	padding: 15px 5px;
+	border-bottom: 1px solid #eee;
+}

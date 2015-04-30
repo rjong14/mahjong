@@ -1,5 +1,5 @@
 angular.module('App.services', [])
-    .factory('User', function () {
+    .factory('Users', function () {
         var currentUser = {
             "id": "rjong14", // Avans username
             "name": "Rick de Jong", // fullname
@@ -7,7 +7,24 @@ angular.module('App.services', [])
             "nickname": "Default" // maybe filled later?
         };
 
+        var users = [{
+            "id": "rjong14", // Avans username
+            "name": "Rick de Jong", // fullname
+            "email": "rjong14@avans.nl", // avans e-mail
+            "nickname": "Default" // maybe filled later?
+        },
+        {
+            "id": "some1", // Avans username
+            "name": "som1", // fullname
+            "email": "som1@avans.nl", // avans e-mail
+            "nickname": "Default" // maybe filled later?
+        }];
+
         return {
+            all: function () {
+                console.log(users);
+                return users;
+            },
             currentUser: function () {
                 return currentUser;
             }
@@ -59,11 +76,41 @@ angular.module('App.services', [])
                     "nickname": "Default" // maybe filled later?
                         // Properties like score and isWinner maybe filled later
                 }],
-                "state": "open" // -> 'open'|'playing'|'finished'
+                "state": "playing" // -> 'open'|'playing'|'finished'
             }];
 
         return {
             all: function () {
+                return games;
+            },
+            open: function () {
+                var open = [];
+                angular.forEach(games, function(game){
+                if(game.state === "open"){
+                  open.push(game);
+                    console.log(open);
+                }
+                });
+                return open;
+            },
+            playing: function () {
+                var playing = [];
+                angular.forEach(games, function(game){
+                if(game.state === "playing"){
+                  playing.push(game);
+                    console.log(playing);
+                }
+                });
+                return playing;
+            },
+            finished: function () {
+                var finished = [];
+                angular.forEach(games, function(game){
+                if(game.state === "finished"){
+                  finished.push(game);
+                    console.log(finished);
+                }
+                });
                 return games;
             },
             get: function (index) {

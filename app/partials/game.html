@@ -3,12 +3,23 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-                <div class="panel panel-default chat">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Active Games</div>
+
+            <div class="col-md-12">
+                <div class="panel panel-teal">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span>Game Board</div>
                     <div class="panel-body">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Open Games</div>
+                    <div class="panel-body gamelist">
                         <ul>
-                            <li ng-repeat="game in gameCtrl.games" >
+                            <li ng-repeat="game in gameCtrl.openGames" >
                                 <strong>Game: {{game.layout}}</strong>
                                 <small>Creator: {{game.createdBy.name}}</small>
                             </li>
@@ -17,13 +28,70 @@
                 </div>
             </div>
 
-            <div class="col-md-8">
-                <div class="panel panel-teal">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span>Game Board</div>
-                    <div class="panel-body">
 
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Active Games <button class="pull-right btn btn-md btn-send allchatbtn"><span class="glyphicon glyphicon-plus allchatplusbtn"></span> New Game</button>
+              </div>
+                    <div class="panel-body gamelist">
+                        <ul>
+                            <li ng-repeat="game in gameCtrl.playingGames" >
+                                <strong>Game: {{game.layout}}</strong>
+                                <small>Creator: {{game.createdBy.name}}</small>
+                            </li>
+                        </ul>
                     </div>
+                </div>
+            </div>
 
+<!--
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Select a User</div>
+                    <div class="panel-body gamelist">
+                        <ul>
+                            <li ng-repeat="user in mCtrl.users" >
+                                <strong>User: {{user.id}}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+-->
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Game settings</div>
+                    <div class="panel-body">
+                        <form ng-submit="gameCtrl.submitEmployee()">
+                                <div class="form-group">
+                                    <label for="layout">Layout</label>
+                                    <select name="layout" ng-model="gameCtrl.game.layout" class="form-control">
+                                        <option value="">Select a Layout</option>
+                                        <option value="shanghai">Shanghai</option>
+                                        <option value="snake">Snake</option>
+                                        <option value="ox">OX</option>
+                                        <option value="ram">Ram</option>
+                                        <option value="dragon">Dragon</option>
+                                        <option value="rooster">Rooster</option>
+                                        <option value="monkey">Monkey</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="minPlayers">Min # of Players</label>
+                                    <input name="minPlayers" class="form-control" ng-model="gameCtrl.game.minPlayers" type="number" min="1" max="35" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="maxPlayers">Max # of Players</label>
+                                    <input name="maxPlayers" class="form-control" ng-model="gameCtrl.game.maxPlayers" type="number" min="1" max="35" />
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-block btn-primary" ng-click="apply()">Create Game</button>
+                                </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
