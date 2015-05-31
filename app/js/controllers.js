@@ -60,7 +60,6 @@ angular.module('App.controllers', [])
         };
 
 
-
     })
     .controller('callbackController', function ($location, $routeParams) {
 
