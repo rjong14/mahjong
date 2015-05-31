@@ -1,31 +1,64 @@
 angular.module('App.controllers', [])
     .controller('mainController', function ($scope, Users) {
-    	var username 		= window.localStorage.getItem('username');
-	    var token 			= window.localStorage.getItem('token');
-        if (token != 'undefined' && username != 'undefined') 		{ Users.login(username, token);}
+        var username = window.localStorage.getItem('username');
+        var token = window.localStorage.getItem('token');
+        if (token != 'undefined' && username != 'undefined' && token && username) {
+            Users.login(username, token);
+        }
         this.lol = "Hello World";
         this.user = Users.all();
         this.loggedIn = Users.isLoggedIn();
         console.log(Users.isLoggedIn());
         console.log("user " + username);
         console.log("token " + token);
-       	this.login = function ()
-        {
-            window.location.href = "http://mahjongmayhem.herokuapp.com/auth/avans?callbackUrl=http://localhost:8080/oauthcallback";
+        this.login = function () {
+            window.location.href = "http://mahjongmayhem.herokuapp.com/auth/avans?callbackUrl=http://localhost:8081/oauthcallback";
         };
 
         //$('body').prepend('<p>wooooooooooooooo</p>');
     })
     .controller('gameController', function ($scope, Users, Games) {
-       console.log("gameC");
-       this.lol = "hallo games";
-       var curGame = "";
+        console.log("gameC");
+        this.lol = "hallo games";
+        var curGame = "";
 
-       Games.all(function(response) { $scope.games = response });
-       if (curGame != ""){
-         Games.get(function(response, curGame) { $scope.game = response });
-         Games.getTiles(function(response, curGame) { $scope.gameTiles = response });
-       }
+        $scope.load = function () {
+            console.log("load");
+            Games.all(function (response) {
+                $scope.games = response
+            });
+            if (curGame != "") {
+                Games.get(function (response) {
+                    $scope.game = response
+                }, curGame);
+                Games.getTiles(function (response) {
+                    $scope.gameTiles = response
+                }, curGame);
+            }
+        };
+        $scope.load();
+        this.setCurGame = function (id) {
+            console.log("cur " + id)
+            curGame = id;
+            $scope.load();
+        };
+        this.startGame = function () {
+            Games.startGame(function (response) {
+                $scope.load()
+            }, curGame);
+        };
+        this.submitNewGame = function () {
+            var data = {
+                templateName: this.newgame.layout,
+                minPlayers: this.newgame.minPlayers,
+                maxPlayers: this.newgame.maxPlayers
+            };
+            console.log(data);
+            Games.newGame(function (response) {
+                $scope.load()
+            }, data);
+        };
+
 
 
     })

@@ -63,6 +63,13 @@ angular.module('App.services', [])
             },
             getTiles: function(callback, id){
                 $http.get(apiurl.get() + "games/" + id + "/tiles").success(callback);
+            },
+
+            newGame: function(callback, data){
+                $http.post(apiurl.get() + "games", data).success(callback);
+            },
+            startGame: function(callback, id){
+                $http.post(apiurl.get() + "games/" + id + "/start").success(callback);
             }
 
         };
