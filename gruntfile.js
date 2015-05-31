@@ -31,6 +31,10 @@ module.exports = function (grunt) {
                 files: 'app/**/*.html',
                 tasks: 'copy'
             },
+            layout: {
+                files: 'app/*.html',
+                tasks: 'copy'
+            },
             css: {
                 files: 'app/**/*.css',
                 tasks: 'copy'

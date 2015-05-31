@@ -1,41 +1,43 @@
 angular.module('App.controllers', [])
     .controller('mainController', function ($scope, Users) {
+    	var username 		= window.localStorage.getItem('username');
+	    var token 			= window.localStorage.getItem('token');
+        if (token != 'undefined' && username != 'undefined') 		{ Users.login(username, token);}
         this.lol = "Hello World";
-        this.user = Users.currentUser();
-        this.users = Users.all();
+        this.user = Users.all();
+        this.loggedIn = Users.isLoggedIn();
+        console.log(Users.isLoggedIn());
+        console.log("user " + username);
+        console.log("token " + token);
+       	this.login = function ()
+        {
+            window.location.href = "http://mahjongmayhem.herokuapp.com/auth/avans?callbackUrl=http://localhost:8080/oauthcallback";
+        };
+
         //$('body').prepend('<p>wooooooooooooooo</p>');
     })
     .controller('gameController', function ($scope, Users, Games) {
+       console.log("gameC");
+       this.lol = "hallo games";
+       var curGame = "";
 
-        this.games = Games.all();
-        this.openGames = Games.open();
-        this.playingGames = Games.playing();
-        this.game = {
-                "layout": "", // -> 'shanghai'|'snake'|'ox'|'ram'|'dragon'|'rooster'|'monkey'
-                "createdOn": "", // date + time
-                "startedOn": "", // date + time
-                "endedOn": "", // date + time
-               "createdBy": "",
-               "minPlayers": "", // 35 <= x >= 1, Required number of players to start
-               "maxPlayers": "",  // 35 <= x >= 1
-                "players": [],
-                "state": "" // -> 'open'|'playing'|'finished'
-            };
+       Games.all(function(response) { $scope.games = response });
+       if (curGame != ""){
+         Games.get(function(response, curGame) { $scope.game = response });
+         Games.getTiles(function(response, curGame) { $scope.gameTiles = response });
+       }
 
-        this.submitEmployee = function() {
-            var data = {
-                "layout": this.game.layout, // -> 'shanghai'|'snake'|'ox'|'ram'|'dragon'|'rooster'|'monkey'
-                "createdOn": new Date(), // date + time
-                "startedOn": new Date(), // date + time
-                "endedOn": "", // date + time
-               "createdBy": Users.currentUser(),
-               "minPlayers": this.game.minPlayers, // 35 <= x >= 1, Required number of players to start
-               "maxPlayers": this.game.maxPlayers,  // 35 <= x >= 1
-                "players": [Users.currentUser()],
-                "state": "open" // -> 'open'|'playing'|'finished'
-            };
-            console.log(data);
-            Games.insert(data);
-            this.openGames = Games.open();
-  	};
+
+    })
+    .controller('callbackController', function ($location, $routeParams) {
+
+        console.log("param" + $routeParams.username)
+        window.localStorage.setItem('username', $routeParams.username);
+        window.localStorage.setItem('token', $routeParams.token);
+
+        console.log(window.localStorage.getItem('username'));
+        console.log(window.localStorage.getItem('token'));
+
+        //$location.url('#/');
+        //window.location.reload();
     });

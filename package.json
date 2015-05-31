@@ -23,7 +23,8 @@
     "browserify": "~9.0.8",
     "browserify-shim": "~3.8.5",
     "grunt-karma": "~0.10.1",
-    "karma-coverage": "0.2.6"
+    "karma-coverage": "0.2.6",
+    "angular-cookies": "~1.4.0"
   },
   "devDependencies": {},
   "scripts": {
