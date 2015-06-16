@@ -869,8 +869,25 @@ h1.page-header {
 
 /*Custom css*/
 
-.panel {
- min-height: 900px;
+li .btn {
+ display: none;
+    float: right;
+}
+li:hover .btn {
+ display: block;
+}
+
+.gamelist {
+ height: 300px;
+    overflow: auto;
+}
+
+.newgame {
+ height: 300px;
+}
+
+.gamepanel {
+     height: 900px;
 }
 
 .gamelist ul {

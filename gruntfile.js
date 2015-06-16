@@ -13,6 +13,16 @@ module.exports = function (grunt) {
                 }
             }
         },
+        sass: {
+          dist : {
+              options: {
+                  style: 'expanded'
+              },
+              files: {
+                  'dist/css/app.css' : 'app/css/app.scss'
+              }
+          }
+        },
         copy: {
             all: {
                 // This copies all the html and css into the dist/ folder

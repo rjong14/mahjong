@@ -12,8 +12,13 @@ angular.module('App.controllers', [])
         console.log("user " + username);
         console.log("token " + token);
         this.login = function () {
-            window.location.href = "http://mahjongmayhem.herokuapp.com/auth/avans?callbackUrl=http://localhost:8081/oauthcallback";
+            window.location.href = "http://mahjongmayhem.herokuapp.com/auth/avans?callbackUrl=http://localhost:8080/%23/oauthcallback";
         };
+        this.logout = function () {
+            console.log("clear")
+            window.localStorage.clear();
+        };
+
 
         //$('body').prepend('<p>wooooooooooooooo</p>');
     })
@@ -31,6 +36,7 @@ angular.module('App.controllers', [])
                 Games.get(function (response) {
                     $scope.game = response
                 }, curGame);
+                $scope.gameTiles = "";
                 Games.getTiles(function (response) {
                     $scope.gameTiles = response
                 }, curGame);

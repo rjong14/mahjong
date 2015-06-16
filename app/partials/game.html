@@ -4,34 +4,16 @@
 
 <div class="row">
 
-            <div class="col-md-12">
-                <div class="panel panel-teal">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span>
-                    Game Board
-                    <small>ID: {{game.id}} createdBy: {{game.createdBy.name}}</small>
-                    <button ng-show="game.state == 'open'" class="btn" ng-click="gameCtrl.startGame()">Start</button>
-                    </div>
-                    <div class="panel-body">
-
-                    <div class="tileContainer">
-                        <span class="tile" ng-repeat="tile in gameTiles" style="left: {{ tile.xPos *20 }}px; top: {{ tile.yPos *35 + 100 + tile.zPos *6 }}px; z-index: {{ tile.zPos * 100 }};">{{tile.tile.suit}} - {{tile.tile.name}}</span>
-
-                    </div>
-
-                    </div>
-
-                </div>
-            </div>
 
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Open Games</div>
                     <div class="panel-body gamelist">
                         <ul>
-                            <li ng-repeat="game in games | filter:{'state' : 'open'}" ng-click="gameCtrl.setCurGame(game.id)">
-                                <strong>Game: {{game.id}}</strong>
+                            <li ng-repeat="game in games | filter:{'state' : 'open', 'players' : { 'name' : '!Rick de Jong'}}" ng-click="gameCtrl.setCurGame(game.id)">
+                                <strong>{{game.gameTemplate.id}}</strong>
                                 <small>Creator: {{game.createdBy.name}}</small>
-                                <small>state: {{game.state}}</small>
+                                <button ng-show="game.state == 'open'" class="btn" ng-click="">join</button>
                             </li>
                         </ul>
                     </div>
@@ -41,13 +23,19 @@
 
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Active Games <button class="pull-right btn btn-md btn-send allchatbtn"><span class="glyphicon glyphicon-plus allchatplusbtn"></span> New Game</button>
+                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>My Games <button class="pull-right btn btn-md btn-send allchatbtn"><span class="glyphicon glyphicon-plus allchatplusbtn"></span> New Game</button>
               </div>
                     <div class="panel-body gamelist">
                         <ul>
                             <li ng-repeat="game in games | filter:{'state' : 'playing', 'players' : { 'name' : 'Rick de Jong'}}" ng-click="gameCtrl.setCurGame(game.id)">
+                                <strong>STARTED</strong>
                                 <strong>Game: {{game.layout}}</strong>
                                 <small>Creator: {{game.createdBy.name}}</small>
+                            </li>
+                            <li class="openlist" ng-repeat="game in games | filter:{'state' : 'open', 'players' : { 'name' : 'Rick de Jong'}}" ng-click="gameCtrl.setCurGame(game.id)">
+                                <strong>Game: {{game.layout}}</strong>
+                                <small>Creator: {{game.createdBy.name}}</small>
+                                <button ng-show="game.state == 'open'" class="btn" ng-click="gameCtrl.startGame()">Start</button>
                             </li>
                         </ul>
                     </div>
@@ -71,7 +59,7 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Game settings</div>
-                    <div class="panel-body">
+                    <div class="panel-body newgame">
                         <form ng-submit="gameCtrl.submitNewGame()">
                                 <div class="form-group">
                                     <label for="layout">Layout</label>
@@ -96,6 +84,29 @@
                                 </div>
                         </form>
                     </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-teal">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span>
+                    Game Board:
+                    {{game.gameTemplate.id}}
+                    <small> createdBy: {{game.createdBy.name}}</small>
+                    </div>
+                    <div class="settings-panel">
+                        <strong>Players: </strong>
+                        <span class="players" ng-repeat="player in game.players">{{player.name}}, </span>
+                    </div>
+                    <div class="panel-body gamepanel" ng-show="gameTiles">
+
+                    <div class="tileContainer">
+                        <span class="tile" ng-repeat="tile in gameTiles" style="left: {{ tile.xPos *20 }}px; top: {{ tile.yPos *35 + 100 + tile.zPos *6 }}px; z-index: {{ tile.zPos * 100 }};">{{tile.tile.suit}} - {{tile.tile.name}}</span>
+
+                    </div>
+
+                    </div>
+
                 </div>
             </div>
 
