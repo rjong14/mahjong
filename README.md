@@ -10,9 +10,9 @@
 
 - [x] Als gebruiker wil ik een game kunnen aanmaken
 
-- [ ] Als gebruiker wil ik een nog niet gestarte game joinen
+- [x] Als gebruiker wil ik een nog niet gestarte game joinen
 
-- [ ] Als gebruiker wil ik spelers in een nog niet gestarte game kunnen zien
+- [x] Als gebruiker wil ik spelers in een nog niet gestarte game kunnen zien
 
 
 
