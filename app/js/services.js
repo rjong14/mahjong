@@ -13,9 +13,10 @@ angular.module('App.services', [])
     .factory('Users', function () {
         var currentUser = {
             "id": "rjong14", // Avans username
-            "name": "Rick de Jong", // fullname
-            "email": "rjong14@avans.nl", // avans e-mail
-            "nickname": "Default" // maybe filled later?
+            "token": ""
+//            "name": "Rick de Jong", // fullname
+//            "email": "rjong14@avans.nl", // avans e-mail
+//            "nickname": "Default" // maybe filled later?
         };
 
        	var username = null;
@@ -25,8 +26,8 @@ angular.module('App.services', [])
         return {
             login : function (newUsername, newToken)
             {
-                username 	= newUsername;
-                token 		= newToken;
+                currentUser.id 	= newUsername;
+                currentUser.token = newToken;
                 loggedIn 	= true;
             },
             isLoggedIn: function ()
@@ -36,11 +37,11 @@ angular.module('App.services', [])
 
     		getUsername: function ()
             {
-                return username;
+                return currentUser.id;
             },
             getToken: function ()
             {
-                return token;
+                return currentUser.token;
             },
             all: function () {
                 return currentUser;
