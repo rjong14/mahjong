@@ -3,15 +3,15 @@
 
 ###checklist:
 
-[x] Als gebruiker wil ik een lijst van te spelen games kunnen zien
+- [x] Als gebruiker wil ik een lijst van te spelen games kunnen zien
 
-[x] Bovenaan moet de game als laatste aangemaakt is
+- [x] Bovenaan moet de game als laatste aangemaakt is
 
-[x] Als gebruiker wil ik een game kunnen aanmaken
+- [x] Als gebruiker wil ik een game kunnen aanmaken
 
-[] Als gebruiker wil ik een nog niet gestarte game joinen
+- [ ] Als gebruiker wil ik een nog niet gestarte game joinen
 
-[] Als gebruiker wil ik spelers in een nog niet gestarte game kunnen zien
+- [ ] Als gebruiker wil ik spelers in een nog niet gestarte game kunnen zien
 
 
 [x] Als gebruiker wil ik de tegels van een spel kunnen ophalen bij een game
