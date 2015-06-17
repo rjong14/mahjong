@@ -13,7 +13,7 @@
                             <li ng-repeat="game in games | filter:{'state' : 'open', 'players' : { '_id' : '!'+mCtrl.user.id}}" ng-click="gameCtrl.setCurGame(game.id)">
                                 <strong>{{game.gameTemplate.id}}</strong>
                                 <small>Creator: {{game.createdBy.name}}</small>
-                                <button ng-show="game.state == 'open'" class="btn" ng-click="">join</button>
+                                <button ng-show="game.state == 'open'" class="btn" ng-click="gameCtrl.joinGame(game.id)">join</button>
                             </li>
                         </ul>
                     </div>

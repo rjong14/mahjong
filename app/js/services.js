@@ -71,6 +71,9 @@ angular.module('App.services', [])
             },
             startGame: function(callback, id){
                 $http.post(apiurl.get() + "games/" + id + "/start").success(callback);
+            },
+            joinGame: function(callback, id){
+                $http.post(apiurl.get() + "games/" + id + "/players").success(callback);
             }
 
         };

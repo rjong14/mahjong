@@ -70,6 +70,11 @@ angular.module('App.controllers', [])
                 $scope.load()
             }, data);
         };
+        this.joinGame = function(id) {
+            Games.joinGame(function (response) {
+                $scope.load()
+            }, id);
+        };
 
 
     })
