@@ -17,12 +17,12 @@
 
 
 #####Sprint 2:
-- [x] Als gebruiker wil ik de tegels van een spel kunnen ophalen bij een game
+- [x] Als gebruiker wil ik de tegels van een spel kunnen ophalen bij een game.
          Deze tegels kan je ophalen vanaf de server via de volgende URL: https://mahjongmayhem.herokuapp.com/game.
          Deze game is al afgerond, maar je kan hier nog wel de tegels van zien. Voor deze sprint is dit handig ze
 
 - [ ] Als gebruiker wil ik kunnen aangeven dat ik een match zie.
--        Doe dit dus client side zodat we dit later kunnen invullen
+         Doe dit dus client side zodat we dit later kunnen invullen
 
 - [ ] Als gebruiker wil ik feedback krijgen als er geen matches mogelijk meer zijn.
 
