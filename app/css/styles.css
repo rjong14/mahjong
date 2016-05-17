@@ -869,6 +869,12 @@ h1.page-header {
 
 /*Custom css*/
 
+
+.panel-game {
+    background-color: #7bc043;
+    color: #FFF;
+}
+
 li .btn {
  display: none;
     float: right;
@@ -910,7 +916,7 @@ li:hover .btn {
 /*tile css*/
 
 .tileContainer {
-   left: 500px;
+   left: 370px;
     position: absolute;
 
 }
@@ -918,13 +924,14 @@ li:hover .btn {
 .tile {
     border-style: solid;
     border-width: 0.5px;
-    border-color: #b9986d;
-    background-color: burlywood;
-    width: 40px;
-    height: 70px;
+    border-color: #0392cf;
+    background-color: #0392cf;
+    width: 60px;
+    height: 90px;
+    background-size: 60px 90px;
     position:absolute;
     font-size: 7px;
-    box-shadow: 2px 2px 8px #5d5c5c;
+    box-shadow: 4px 4px 8px 3px #5f6468;
 
 
 }

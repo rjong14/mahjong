@@ -88,7 +88,7 @@
             </div>
 
             <div class="col-md-12">
-                <div class="panel panel-teal">
+                <div class="panel panel-game">
                     <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span>
                     Game Board:
                     {{game.gameTemplate.id}}
@@ -101,7 +101,7 @@
                     <div class="panel-body gamepanel" ng-show="gameTiles">
 
                     <div class="tileContainer">
-                        <span class="tile" ng-repeat="tile in gameTiles" style="left: {{ tile.xPos *20 }}px; top: {{ tile.yPos *35 + 100 + tile.zPos *6 }}px; z-index: {{ tile.zPos * 100 }};">{{tile.tile.suit}} - {{tile.tile.name}}</span>
+                        <span class="tile" ng-repeat="tile in gameTiles" style="left: {{ tile.xPos *30 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }}; background-image: url('/img/tiles/{{tile.tile.suit}}/{{tile.tile.name}}.png');">{{tile.tile.suit}} - {{tile.tile.name}}</span>
 
                     </div>
 

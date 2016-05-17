@@ -18,7 +18,7 @@ angular.module('App.controllers', [])
         console.log("user " + currentUser.id);
         console.log("token " + currentUser.token);
         this.login = function () {
-            window.location.href = "http://mahjongmayhem.herokuapp.com/auth/avans?callbackUrl=http://localhost:8080/%23/oauthcallback";
+            window.location.href = "http://mahjongmayhem.herokuapp.com/auth/avans?callbackUrl=http://localhost:3000/%23/oauthcallback";
         };
         this.logout = function () {
             console.log("clear")
