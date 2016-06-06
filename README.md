@@ -1,5 +1,6 @@
 #Mahjong
 
+[![](https://img.shields.io/badge/rick-approved-ff69b4.svg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ###checklist:
 
