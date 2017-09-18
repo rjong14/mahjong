@@ -28,13 +28,13 @@ module.exports = function (grunt) {
                 // This copies all the html and css into the dist/ folder
                 expand: true,
                 cwd: 'app/',
-                src: ['**/*.html', '**/*.css', '**/*.png'],
+                src: ['**/*.html', '**/**/*.html', '**/*.css', '**/*.png'],
                 dest: 'dist/',
             }
         },
         watch: {
             js: {
-                files: "app/**/*.js",
+                files: ["app/**/*.js", "app/**/**/*.js"],
                 tasks: "browserify"
             },
             html: {

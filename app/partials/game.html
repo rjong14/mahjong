@@ -1,69 +1,80 @@
-<div class="row">
-    <h1> Game {{gameCtrl.lol}}</h1>
+<div ng-show="!mCtrl.loggedIn" class="logindiv">
+    <div>
+        <h1>{{mCtrl.lol}}</h1>
+    </div>
+
+    <div style="margin-top: 100px;">
+        <div class="col-md-4 text-center">
+            <button class="btn btn-primary" ng-click="mCtrl.login();">Login using Oath</button>
+        </div>
+    </div>
+
 </div>
 
-<div class="row">
+
+<div ng-show="mCtrl.loggedIn" class="gamediv">
+    <br />
+    <div class="row">
 
 
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Open Games</div>
-                    <div class="panel-body gamelist">
-                        <ul>
-                            <li ng-repeat="game in games | filter:{'state' : 'open', 'players' : { '_id' : '!'+mCtrl.user.id}}" ng-click="gameCtrl.setCurGame(game.id)">
-                                <strong>{{game.gameTemplate.id}}</strong>
-                                <small>Creator: {{game.createdBy.name}}</small>
-                                <button ng-show="game.state == 'open'" class="btn" ng-click="gameCtrl.joinGame(game.id)">join</button>
-                            </li>
-                        </ul>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Open Games</div>
+                <div class="panel-body gamelist" scrolled="gameCtrl.loadMore()">
+                    <ul>
+                        <li ng-repeat="game in games | filter:{'state' : 'open', 'players' : { '_id' : '!'+mCtrl.user.id}}" ng-click="gameCtrl.setCurGame(game.id)">
+                            <strong>{{game.gameTemplate.id}}</strong>
+                            <small>Creator: {{game.createdBy.name}}</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>My Games
+                </div>
+                <div class="panel-body gamelist">
+                    <ul>
+                        <li ng-repeat="game in mygames" ng-click="gameCtrl.setCurGame(game.id)">
+                            <strong ng-if="game.state == 'playing'">STARTED</strong>
+                            <strong>Game: {{game.layout}}</strong>
+                            <small>Creator: {{game.createdBy.name}}</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-cog"></span>Game settings</div>
+                <div class="panel-body settings">
+                    <div class="game-info" ng-show="game">
+                        Template: {{game.gameTemplate.id}} <br />
+                        <small> createdBy: {{game.createdBy.name}}</small> <br />
+                        <button ng-show="game.state == 'open'&& game.createdBy._id == mCtrl.user.id" class="btn" ng-click="gameCtrl.startGame()">Start</button>
+                        <button ng-show="game.state != 'playing'" ng-if="game.state == 'open' && game.players | contains: { mode : 'not', data : mCtrl.user.id}" class="btn" ng-click="gameCtrl.joinGame(game.id)">join</button>
+                        <button ng-if="game.state == 'open' && game.createdBy._id != mCtrl.user.id && game.players | contains: { data : mCtrl.user.id}" class="btn" ng-click="leaveGame(game.id)">leave</button>
+                        <button ng-if="game.state == 'open' && game.createdBy._id == mCtrl.user.id && game.players | contains: { data : mCtrl.user.id}" class="btn" ng-click="deleteGame(game.id)">Delete</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>My Games <button class="pull-right btn btn-md btn-send allchatbtn"><span class="glyphicon glyphicon-plus allchatplusbtn"></span> New Game</button>
-              </div>
-                    <div class="panel-body gamelist">
-                        <ul>
-                            <li ng-repeat="game in games | filter:{'state' : 'playing', 'players' : { '_id' : mCtrl.user.id }}" ng-click="gameCtrl.setCurGame(game.id)">
-                                <strong>STARTED</strong>
-                                <strong>Game: {{game.layout}}</strong>
-                                <small>Creator: {{game.createdBy.name}}</small>
-                            </li>
-                            <li class="openlist" ng-repeat="game in games | filter:{'state' : 'open', 'players' : { '_id' : mCtrl.user.id}}" ng-click="gameCtrl.setCurGame(game.id)">
-                                <strong>Game: {{game.layout}}</strong>
-                                <small>Creator: {{game.createdBy.name}}</small>
-                                <button ng-show="game.state == 'open'" class="btn" ng-click="gameCtrl.startGame()">Start</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-<!--
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Select a User</div>
-                    <div class="panel-body gamelist">
-                        <ul>
-                            <li ng-repeat="user in mCtrl.users" >
-                                <strong>User: {{user.id}}</strong>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
--->
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Game settings</div>
-                    <div class="panel-body newgame">
-                        <form ng-submit="gameCtrl.submitNewGame()">
-                                <div class="form-group">
-                                    <label for="layout">Layout</label>
-                                    <select name="layout" ng-model="gameCtrl.newgame.layout" class="form-control">
+    </div>
+    <!--END ROW1  -->
+    <div class="row">
+        <div ng-show="!game" class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Create new game</div>
+                <div class="panel-body newgame">
+                    <form ng-submit="gameCtrl.submitNewGame()">
+                        <div class="form-group">
+                            <label for="layout">Layout</label>
+                            <select name="layout" ng-model="gameCtrl.newgame.layout" class="form-control">
                                         <option value="">Select a Layout</option>
                                         <option value="shanghai">Shanghai</option>
                                         <option value="snake">Snake</option>
@@ -74,40 +85,54 @@
                                         <option value="monkey">Monkey</option>
                                     </select>
 
-                                    <label for="gameCtrl.newgame.minPlayers">Min # of Players</label>
-                                    <input name="gameCtrl.newgame.minPlayers" class="form-control" ng-model="gameCtrl.newgame.minPlayers" type="number" min="1" max="35" />
+                            <label for="gameCtrl.newgame.minPlayers">Min # of Players</label>
+                            <input name="gameCtrl.newgame.minPlayers" class="form-control" ng-model="gameCtrl.newgame.minPlayers" type="number" min="1" max="35" />
 
-                                    <label for="gameCtrl.newgame.maxPlayers">Max # of Players</label>
-                                    <input name="gameCtrl.newgame.maxPlayers" class="form-control" ng-model="gameCtrl.newgame.maxPlayers" type="number" min="1" max="35" />
+                            <label for="gameCtrl.newgame.maxPlayers">Max # of Players</label>
+                            <input name="gameCtrl.newgame.maxPlayers" class="form-control" ng-model="gameCtrl.newgame.maxPlayers" type="number" min="1" max="35" />
 
-                                    <button class="btn btn-send" type="submit" ng-click="apply()">Create Game</button>
-                                </div>
-                        </form>
-                    </div>
+                            <button class="btn btn-send" type="submit" ng-click="apply()">Create Game</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-12">
-                <div class="panel panel-game">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span>
-                    Game Board:
-                    {{game.gameTemplate.id}}
+        <div ng-if="game" class="col-md-12">
+            <div class="panel panel-game">
+                <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span> Game Board: {{game.gameTemplate.id}}
                     <small> createdBy: {{game.createdBy.name}}</small>
-                    </div>
-                    <div class="settings-panel">
-                        <strong>Players: </strong>
-                        <span class="players" ng-repeat="player in game.players">{{player.name}}, </span>
-                    </div>
-                    <div class="panel-body gamepanel" ng-show="gameTiles">
+                    <div ng-click="gameCtrl.clearCurGame()" class="game-close pull-right"><span class="glyphicon glyphicon-remove-circle"></span></div>
+                </div>
+                <div class="settings-panel">
+                    <strong>Players: </strong>
+                    <span class="players" ng-repeat="player in game.players">{{player.name}}, </span>
+                    <h2 class="errmsg" ng-if="errMsg">{{errMsg}}</h2>
+                </div>
+                <div class="panel-body gamepanel" ng-show="gameTiles">
 
                     <div class="tileContainer">
-                        <span class="tile" ng-repeat="tile in gameTiles" style="left: {{ tile.xPos *30 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }}; background-image: url('/img/tiles/{{tile.tile.suit}}/{{tile.tile.name}}.png');">{{tile.tile.suit}} - {{tile.tile.name}}</span>
-
+                        <tile class="tile" data="{{ tile._id }}" data-matches="{{ tile.tile.matchesWholeSuit }}" data-suit="{{ tile.tile.suit }}" data-name="{{ tile.tile.name }}" ng-repeat="tile in gameTiles | matched" style="left: {{ tile.xPos *30+350 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
                     </div>
-
-                    </div>
-
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- END ROW2-->
+    <div class="row">
+        <div ng-if="gameMatches" class="col-md-12">
+            <div class="panel match-game">
+                <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span> Matched
+                </div>
+                <div class="panel-body matchpanel">
+                <div class="matchContainer">
+                    <tile class="tile" data="{{ tile._id }}" ng-repeat="tile in gameMatches" />
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>

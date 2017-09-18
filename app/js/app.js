@@ -1,28 +1,39 @@
 require('angular/angular');
 require('angular-route/angular-route');
 require('angular-cookies')
-require('./services.js');
-require('./controllers.js');
+
+var apiurlService = require('./services/apiurl.js');
+var gameFactory = require('./factories/games.js');
+var usersFactory = require('./factories/users.js');
+var mainControler = require('./controllers/main.js');
+var gameController = require('./controllers/game.js');
+var callbackController = require('./controllers/callback.js');
+var tileDirective = require('./directives/tile.js');
+var matchableDirective = require('./directives/matchable.js');
+var scrolledDirective = require('./directives/scrolled.js')
+var containsFilter = require('./filters/contains.js');
+var matchedFilter = require('./filters/matched.js');
+var routerConfig = require('./configs/router.js');
 
 // Create your app
 
-angular.module('App', ['ngRoute', 'ngCookies', 'App.services', 'App.controllers'])
-    .config(function ($routeProvider, $httpProvider) {
-        $httpProvider.defaults.headers.common['x-username'] = window.localStorage.getItem('username');
-        $httpProvider.defaults.headers.common['x-token'] = window.localStorage.getItem('token');
-        $routeProvider
-            .when('/', {
-                templateUrl: 'partials/home.html'
-            })
-            .when('/game', {
-                controller: 'gameController as gameCtrl',
-                templateUrl: 'partials/game.html'
-            })
-            .when('/oauthcallback', {
-                controller: 'callbackController as callCtrl',
-                templateUrl: 'partials/oauthcallback.html'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
-    });
+angular.module('App', [
+                       'ngRoute',
+                       'ngCookies'
+                      ])
+// Services
+    .service('apiurl', apiurlService)
+    .factory('Games', gameFactory)
+    .factory('Users', usersFactory)
+// Controllers
+    .controller('mainController', mainControler)
+    .controller('gameController', gameController)
+    .controller('callbackController', callbackController)
+// Directives
+    .directive('tile', tileDirective)
+    .directive('matchable', matchableDirective)
+    .directive('scrolled', scrolledDirective)
+// Other
+    .filter('contains', containsFilter)
+    .filter('matched', matchedFilter)
+    .config(routerConfig);
