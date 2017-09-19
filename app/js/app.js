@@ -5,6 +5,7 @@ require('angular-cookies')
 var apiurlService = require('./services/apiurl.js');
 var gameFactory = require('./factories/games.js');
 var usersFactory = require('./factories/users.js');
+var socketFactory = require('./factories/socket.js');
 var mainControler = require('./controllers/main.js');
 var gameController = require('./controllers/game.js');
 var callbackController = require('./controllers/callback.js');
@@ -25,6 +26,7 @@ angular.module('App', [
     .service('apiurl', apiurlService)
     .factory('Games', gameFactory)
     .factory('Users', usersFactory)
+    .factory('Socket', socketFactory)
 // Controllers
     .controller('mainController', mainControler)
     .controller('gameController', gameController)

@@ -1,0 +1,148 @@
+@import "partials/_theme.scss";
+
+$dash-green: #7bc043;
+$tile-layover: rgba(50, 169, 198, 0.6);
+$layover-transition: all 0.5s;
+
+@mixin transition($time) {
+  -webkit-transition: $time;
+     -moz-transition: $time;
+      -ms-transition: $time;
+          transition: $time;
+}
+
+.panel-game {
+    background-color: $dash-green;
+    color: #FFF;
+}
+
+li .btn {
+    display: none;
+    float: right;
+}
+
+li:hover .btn {
+    display: block;
+}
+
+.gamelist {
+    height: 300px;
+    overflow: auto;
+}
+
+.newgame {
+    height: 300px;
+}
+
+.settings {
+    height: 300px;
+}
+
+.gamepanel {
+    height: 900px;
+}
+
+.gamelist ul {
+    list-style: none;
+    margin: -15px;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.gamelist ul li:hover {
+    background-color: #abcbc0;
+}
+
+.gamelist ul li {
+    margin-bottom: 10px;
+    padding: 15px 5px;
+    border-bottom: 1px solid #eee;
+}
+
+
+/*tile css*/
+
+.tileContainer {
+    padding: 150px;
+    height: 800px;
+}
+
+.tileContainer .tile {
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #0392cf;
+    background-color: #0392cf;
+    width: 60px;
+    height: 90px;
+    position: absolute;
+    font-size: 7px;
+}
+
+.tileContainer .tile span {
+    background-size: 60px 90px;
+    width: inherit;
+    height: inherit;
+    position: inherit;
+    box-shadow: 4px 4px 8px 5px #5f6468;
+}
+
+.matchpanel {
+    .matchContainer .tile {
+        display: inline-block;
+        border-style: solid;
+        border-width: 0.5px;
+        border-color: #0392cf;
+        background-color: #0392cf;
+        width: 60px;
+        height: 90px;
+        position: relative;
+        font-size: 7px;
+        span {
+            display: inherit;
+            background-size: 60px 90px;
+            width: inherit;
+            height: inherit;
+            position: inherit;
+        }
+    }
+}
+
+.tile:after {
+    content: '\A';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: $tile-layover;
+    opacity: 0;
+    @include transition($layover-transition);
+}
+
+.tile:hover:after {
+    opacity: 1;
+}
+
+.active .dropdown-menu {
+    display: block;
+}
+
+.ng-hide.ng-hide-animate {
+    display: none !important;
+}
+
+.game-close {
+    cursor: pointer;
+}
+
+.game-close:hover {
+    color: #d3d3d3
+}
+
+.candy:after {
+    opacity: 1 !important;
+}
+
+.errmsg {
+    color: crimson;
+}

@@ -17,12 +17,25 @@
     <div class="row">
 
 
-        <div class="col-md-4">
+        <div ng-if="pagemode == 'playing'" class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Open Games</div>
+                <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Open Games <button ng-click="gameCtrl.changeMode()" class="pull-right btn btn-md btn-send allchatbtn"><span class="glyphicon glyphicon-chevron-left"></span>Started games</button></div>
                 <div class="panel-body gamelist" scrolled="gameCtrl.loadMore()">
                     <ul>
                         <li ng-repeat="game in games | filter:{'state' : 'open', 'players' : { '_id' : '!'+mCtrl.user.id}}" ng-click="gameCtrl.setCurGame(game.id)">
+                            <strong>{{game.gameTemplate.id}}</strong>
+                            <small>Creator: {{game.createdBy.name}}</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-if="pagemode == 'spectating'" class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Started Games <button ng-click="gameCtrl.changeMode()" class="pull-right btn btn-md btn-send allchatbtn"><span class="glyphicon glyphicon-chevron-right"></span>Open games</button></div>
+                <div class="panel-body gamelist" scrolled="gameCtrl.loadMore()">
+                    <ul>
+                        <li ng-repeat="game in games | filter:{'state' : 'playing', 'players' : { '_id' : '!'+mCtrl.user.id}}" ng-click="gameCtrl.setCurGame(game.id)">
                             <strong>{{game.gameTemplate.id}}</strong>
                             <small>Creator: {{game.createdBy.name}}</small>
                         </li>

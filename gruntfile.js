@@ -16,10 +16,10 @@ module.exports = function (grunt) {
         sass: {
           dist : {
               options: {
-                  style: 'expanded'
+                    style: 'expanded',
               },
               files: {
-                  'dist/css/app.css' : 'app/css/app.scss'
+                  './dist/css/style.css' : './app/css/style.scss'
               }
           }
         },
@@ -28,7 +28,7 @@ module.exports = function (grunt) {
                 // This copies all the html and css into the dist/ folder
                 expand: true,
                 cwd: 'app/',
-                src: ['**/*.html', '**/**/*.html', '**/*.css', '**/*.png'],
+                src: ['**/*.html', '**/**/*.html', '**/*.png'],
                 dest: 'dist/',
             }
         },
@@ -46,14 +46,15 @@ module.exports = function (grunt) {
                 tasks: 'copy'
             },
             css: {
-                files: 'app/**/*.css',
-                tasks: 'copy'
+                files: 'app/**/*.scss',
+                tasks: 'sass'
             }
         }
     });
 
     // Load
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
 

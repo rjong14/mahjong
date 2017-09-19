@@ -1,13 +1,3 @@
-/*
-Lumino Admin Bootstrap Template by Medialoot
-URL: http://medialoot.com/item/lumino-admin-bootstrap-template/
-Designer: Tony Thomas
-Version: 1.0
-*/
-
-
-/*Global Styles*/
-
 body {
 	background: #f1f4f7;
 	padding-top: 50px;
@@ -100,7 +90,6 @@ h3, h4 {
 	color: #30a5ff;
 }
 
-/*Buttons*/
 
 a.btn:hover,
 button:hover {
@@ -239,7 +228,6 @@ fieldset[disabled] .btn-danger.active {
 	border-color: #f9243f;
 }
 
-/*Backgrounds*/
 
 .bg-primary {
 	color: #1b3548;
@@ -289,7 +277,6 @@ a.bg-danger:hover {
 	color: rgba(255, 255, 255, .75);
 }
 
-/*Panels*/
 
 .panel {
 	border: 0;
@@ -433,7 +420,6 @@ a.bg-danger:hover {
 	background: #fff;
 }
 
-/*Jumbotron*/
 
 .jumbotron {
 	background: #fff;
@@ -441,7 +427,6 @@ a.bg-danger:hover {
 	color: #5f6468;
 }
 
-/*Tabs*/
 
 .panel .tabs {
 	margin: 0;
@@ -488,8 +473,6 @@ a.bg-danger:hover {
 }
 
 
-/*Navbar*/
-
 .navbar {
 	border: 0;
 }
@@ -525,7 +508,6 @@ a.bg-danger:hover {
 	text-decoration: none;
 }
 
-/* Sidebar */
 
 .sidebar {
 	display: block;
@@ -572,7 +554,7 @@ a.bg-danger:hover {
 .sidebar ul.nav .active > a:focus, .sidebar ul.nav li.parent a.active:focus {
 	color: #fff;
 	background-color: #30a5ff;
-}*/
+}
 
 .sidebar ul.nav ul,
 .sidebar ul.nav ul li {
@@ -632,7 +614,6 @@ a.bg-danger:hover {
 	}
 }
 
-/*Breadcrumbs*/
 
 .breadcrumb {
 	border-radius: 0;
@@ -647,7 +628,6 @@ h1.page-header {
 	border-bottom: 0;
 }
 
-/*Charts*/
 
 .main-chart {
 	background: #fff;
@@ -688,7 +668,6 @@ h1.page-header {
 #easypiechart-orange .percent { color: #ffb53e;}
 #easypiechart-red .percent { color: #ef4040;}
 
-/*Calendar Widget*/
 
 #calendar, .datepicker-inline {
 	width: 100%;
@@ -744,7 +723,6 @@ h1.page-header {
 	margin-right: 10px;
 }
 
-/*Todo List Widget*/
 
 .todo-list-item .glyphicon {
 	margin-right:5px;
@@ -793,7 +771,6 @@ h1.page-header {
 }
 
 
-/*Chat Widget*/
 
 .chat ul {
 	list-style: none;
@@ -827,7 +804,6 @@ h1.page-header {
 	margin-left: 5px;
 }
 
-/*Tables*/
 .table {
 	background: #fff;
 }
