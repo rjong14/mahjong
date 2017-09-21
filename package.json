@@ -26,6 +26,7 @@
     "karma-coverage": "^0.2.6",
     "karma-mocha": "^0.1.10",
     "karma-sinon": "^1.0.5",
+    "karma-verbose-reporter": "0.0.6",
     "mocha": "^2.2.5",
     "node-sass": "^4.5.3",
     "sass": "^1.0.0-beta.2",

@@ -11,7 +11,7 @@ module.exports = function (config) {
             'test/*.spec.js'
         ],
 
-        reporters: ['progress', 'coverage'],
+        reporters: ['verbose', 'progress', 'coverage'],
 
         preprocessors: {
           // source files, that you wanna generate coverage for
