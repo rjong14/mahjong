@@ -125,6 +125,12 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
                 Socket.on(function(data){
                     console.log('match made')
                     console.log(data)
+                    $scope.loadTiles();
+                    console.log('lol')
+                    $timeout(function () {
+                        console.log('load Tiles')
+                        $scope.loadTiles();
+                    }, 500);
                 }, "match")
             }
         } else {

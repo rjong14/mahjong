@@ -1,5 +1,3 @@
-/*var es6ify = require('es6ify');
-var brfs = require('brfs');*/
 var istanbul = require('browserify-istanbul');
 
 module.exports = function (config) {
