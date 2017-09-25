@@ -1,6 +1,10 @@
 @import "partials/_theme.scss";
 
-$dash-green: #7bc043;
+$dash-green: #7AC043;
+$dash-blue: #9ED9F7;
+$dash-yellow: #F9E97A;
+$dash-red: #EE4035;
+$dash-orange: #F37737;
 $tile-layover: rgba(50, 169, 198, 0.6);
 $layover-transition: all 0.5s;
 
@@ -70,8 +74,8 @@ li:hover .btn {
 .tileContainer .tile {
     border-style: solid;
     border-width: 0.5px;
-    border-color: #0392cf;
-    background-color: #0392cf;
+    border-color: $dash-blue;
+    background-color: $dash-blue;
     width: 60px;
     height: 90px;
     position: absolute;
@@ -91,8 +95,8 @@ li:hover .btn {
         display: inline-block;
         border-style: solid;
         border-width: 0.5px;
-        border-color: #0392cf;
-        background-color: #0392cf;
+        border-color: $dash-blue;
+        background-color: $dash-blue;
         width: 60px;
         height: 90px;
         position: relative;
@@ -144,5 +148,5 @@ li:hover .btn {
 }
 
 .errmsg {
-    color: crimson;
+    color: $dash-red;
 }

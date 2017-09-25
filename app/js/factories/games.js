@@ -36,7 +36,7 @@ module.exports = function ($http, apiurl) {
             var tiles = {}
             tiles.tile1Id = tile1
             tiles.tile2Id = tile2
-            $http.put(apiurl.base() + "/games/" + id + "/tiles", tiles).success(callback);
+            $http.put(apiurl.base() + "/games/" + id + "/tiles", tiles).then(callback, callback);
         },
         leaveGame: function (callback, id) {
             $http.delete(apiurl.base() + "/games/" + id + "/players").success(callback);

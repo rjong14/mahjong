@@ -58,35 +58,43 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
                     $scope.sendTiles(m.tile1.id, m.tile2.id)
                 } else {
                     console.log('no suit match')
-                    $scope.errTiles()
+                    $scope.errTiles('no suit match')
                 }
             } else {
                 if (m.tile1.suit == m.tile2.suit && m.tile1.name == m.tile2.name) {
                     $scope.sendTiles(m.tile1.id, m.tile2.id)
                 } else {
                     console.log('no full match')
-                    $scope.errTiles()
+                    $scope.errTiles('no full match')
                 }
             }
         } else {
             console.log('no bool match')
-            $scope.errTiles()
+            $scope.errTiles('no bool match')
         }
     }
 
     $scope.sendTiles = function (tile1, tile2) {
+        console.log('before match')
         Games.matchTiles(function (response) {
-            if (response[0].match) {
-                $scope.loadTiles()
+            console.log('dooo maaatch')
+            if (response.data.message) {
+                console.log(response)
+                $scope.errTiles(response.data.message)
             } else {
-                $scope.errMsg()
+                console.log(response)
+                if (response.data[0].match) {
+                    $scope.loadTiles()
+                } else {
+                    $scope.errTiles('undefined error')
+                }
             }
 
         }, curGame, tile1, tile2)
         $scope.clearMatch()
     };
-    $scope.errTiles = function () {
-        $scope.errMsg = "Not a match!!"
+    $scope.errTiles = function (msg) {
+        $scope.errMsg = msg
         $timeout(function () {
             $scope.errMsg = ""
         }, 4000);
@@ -121,8 +129,8 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
                     $scope.gameMatches = response
                 }
             }, curGame)
-            if(Socket.connect(curGame)){
-                Socket.on(function(data){
+            if (Socket.connect(curGame)) {
+                Socket.on(function (data) {
                     console.log('match made')
                     console.log(data)
                     $scope.loadTiles();
