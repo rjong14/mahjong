@@ -18,7 +18,7 @@
 
 
         <div ng-if="pagemode == 'playing'" class="col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-setting">
                 <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Open Games <button ng-click="gameCtrl.changeMode()" class="pull-right btn btn-md btn-send allchatbtn"><span class="glyphicon glyphicon-chevron-left"></span>Started games</button></div>
                 <div class="panel-body gamelist" scrolled="gameCtrl.loadMore()">
                     <ul>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div ng-if="pagemode == 'spectating'" class="col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-setting">
                 <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Started Games <button ng-click="gameCtrl.changeMode()" class="pull-right btn btn-md btn-send allchatbtn"><span class="glyphicon glyphicon-chevron-right"></span>Open games</button></div>
                 <div class="panel-body gamelist" scrolled="gameCtrl.loadMore()">
                     <ul>
@@ -46,7 +46,7 @@
 
 
         <div class="col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-setting">
                 <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>My Games
                 </div>
                 <div class="panel-body gamelist">
@@ -62,7 +62,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-setting">
                 <div class="panel-heading"><span class="glyphicon glyphicon-cog"></span>Game settings</div>
                 <div class="panel-body settings">
                     <div class="game-info" ng-show="game">
@@ -81,7 +81,7 @@
     <!--END ROW1  -->
     <div class="row">
         <div ng-show="!game" class="col-md-12">
-            <div class="panel panel-default">
+            <div class="panel panel-setting">
                 <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Create new game</div>
                 <div class="panel-body newgame">
                     <form ng-submit="gameCtrl.submitNewGame()">
@@ -134,7 +134,7 @@
     <!-- END ROW2-->
     <div class="row">
         <div ng-if="gameMatches" class="col-md-12">
-            <div class="panel match-game">
+            <div class="panel panel-game match-game">
                 <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span> Matched
                 </div>
                 <div class="panel-body matchpanel">

@@ -1,18 +1,79 @@
-@import "partials/_theme.scss";
-
 @import "partials/_vars.scss";
+@import "partials/_global.scss";
+@import "partials/_theme.scss";
+@import "partials/_mixins.scss";
 
-@mixin transition($time) {
-  -webkit-transition: $time;
-     -moz-transition: $time;
-      -ms-transition: $time;
-          transition: $time;
+
+// $bgColor-pr, $bgColor-sec, $fgColor-pr, $fgColor-sec
+@include theme("dash", $dash-green, $bg-light, $dash-blue, $fg-dark, $fg-light);
+@include theme("dash1", $dash-blue, $bg-light, $dash-green, $fg-dark, $fg-light);
+@include theme("dash2", $dash-orange, $dash-yellow, $dash-red, $fg-dark, $fg-light);
+@include theme("twili", $twili-lavender, $bg-dark, $twili-sparkle, $fg-light, $fg-dark);
+
+
+.colors {
+    position: absolute;
+    right: 0;
+    top: 20%;
+    width: 50px;
+    padding: 0;
+    height: auto;
+    background: #34495e;
+    border: 2px solid #2c3e50;
+    box-shadow: 0 0 0 5px #2c3e50 inset;
+    .color {
+        -webkit-appearance: none;
+        display: block;
+        outline: 0;
+        width: 0;
+        height: 40px;
+        margin: 5px;
+        border-left: 10px solid #f00;
+        position: relative;
+        left: 0;
+        transition: all 0.5s ease;
+        cursor: pointer;
+    }
+    .dash {
+        border-color: $dash-green;
+    }
+    .dash1 {
+        border-color: $dash-blue;
+    }
+    .dash2 {
+        border-color: $dash-orange;
+    }
+    .twili {
+        border-color: $twili-lavender;
+    }
 }
 
-.panel-game {
-    background-color: $dash-green;
-    color: #FFF;
+.colors .color:before {
+    content: '';
+    display: block;
+    width: 45px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0);
+    border-width: 5px 0;
+    border-style: solid;
+    border-color: #2c3e50;
+    position: relative;
+    top: -5px;
+    left: -10px;
+    transition: all 0.5s ease;
+    cursor: pointer;
 }
+
+.colors .color:checked:before,
+.colors .color:hover:before {
+    left: -45px;
+}
+
+.colors .color:checked,
+.colors .color:hover {
+    left: 30px;
+}
+
 
 li .btn {
     display: none;
