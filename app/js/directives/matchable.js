@@ -7,8 +7,11 @@ module.exports = function () {
                 console.log('el: ');
                 console.log(element);
                 console.log('at: ');
-                console.log(attributes.data);
-                console.log(attributes.suit);
+                var t = JSON.parse(attributes.all)
+                //console.log(attributes.data);
+                //console.log(attributes.suit);
+                console.log(attributes.all);
+                console.log(t.tile.suit);
                 element.addClass('candy');
                 if($scope.match.tile1.id == ""){
                     $scope.match.tile1.id = attributes.data;

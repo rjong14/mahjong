@@ -243,7 +243,7 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
 		        }
 	    	}
 	    	
-	    })
+	    };
 	    if(blockedFromTop){
 	        return true;
 	    } else if(blockedFromRight && blockedFromLeft){
