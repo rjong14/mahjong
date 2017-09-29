@@ -21,7 +21,6 @@ describe("directives", () => {
 
 		var element 		= $compile('<div></div>')($scope);
 		$scope.$digest();
-        console.log(element)
 		expect(element.attr("class")).to.have.string('ng-scope');
 	});
 });

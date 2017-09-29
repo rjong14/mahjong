@@ -125,7 +125,7 @@
                 <div class="panel-body gamepanel" ng-show="gameTiles">
 
                     <div class="tileContainer">
-                        <tile class="tile" data="{{ tile._id }}" data-matches="{{ tile.tile.matchesWholeSuit }}" data-suit="{{ tile.tile.suit }}" data-name="{{ tile.tile.name }}" ng-repeat="tile in gameTiles | matched" style="left: {{ tile.xPos *30+350 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
+                        <tile class="tile" data-all="{{tile}}" data="{{ tile._id }}" data-matches="{{ tile.tile.matchesWholeSuit }}" data-suit="{{ tile.tile.suit }}" data-name="{{ tile.tile.name }}" ng-repeat="tile in gameTiles | matched" style="left: {{ tile.xPos *30+350 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
                     </div>
                 </div>
             </div>

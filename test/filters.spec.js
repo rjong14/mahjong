@@ -14,8 +14,8 @@ describe("Filters",() => {
 
 	beforeEach(inject(function (_matchedFilter_, _containsFilter_)
 	{
-		matchedFilter 			= _matchedFilter_;
-		containsFilter 			= _containsFilter_;
+		matchedFilter = _matchedFilter_;
+		containsFilter = _containsFilter_;
 	}));
 
 
@@ -23,7 +23,6 @@ describe("Filters",() => {
 	{
         let options = { data : 'test3@avans.nl'}
 		let result = containsFilter(playersTest, options);
-		console.log(result)
 		expect(result).to.be.true;
 
 		done();
@@ -32,7 +31,6 @@ describe("Filters",() => {
 	{
         let options = { data : 'test1337@avans.nl'}
 		let result = containsFilter(playersTest, options);
-		console.log(result)
 		expect(result).to.be.false;
 
 		done();
@@ -41,7 +39,6 @@ describe("Filters",() => {
 	{
         let options = {mode : "not", data : 'test1337@avans.nl'}
 		let result = containsFilter(playersTest, options);
-		console.log(result)
 		expect(result).to.be.true;
 
 		done();
@@ -50,7 +47,6 @@ describe("Filters",() => {
 	{
         let options = {mode : "not", data : 'test3@avans.nl'}
 		let result = containsFilter(playersTest, options);
-		console.log(result)
 		expect(result).to.be.false;
 
 		done();

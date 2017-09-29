@@ -6,6 +6,18 @@ module.exports = function ($http, apiurl) {
         all: function (callback) {
             $http.get(apiurl.base() + "/games").then(callback);
         },
+        test: function () {
+            $http.get(apiurl.base() + "/games").success(function(response){
+                console.log('test succ')
+                return response;
+            }).error(function(err){
+                console.log('test err')
+                return err;
+            });
+        },
+        lol: function () {
+            return 'lol';
+        },
         get: function (callback, id) {
             $http.get(apiurl.base() + "/games/" + id).success(callback);
         },

@@ -34,43 +34,43 @@
 
 - [ ] Als gebruiker wil ik de gematchte tegels per speler zien
 
-- [ ] Als gebruiker wil ik tegels die nog niet gematched zijn, kunnen matchen
+- [x] Als gebruiker wil ik tegels die nog niet gematched zijn, kunnen matchen
 
 
 
 #####Sprint 4:
 - [x] Als gebruiker wil ik een lobby van games open voor deelname kunnen zien
    
-- [ ]  Als gebruiker wil ik een lobby van actieve games zien waarbij ik kan toeschouwen
+- [x]  Als gebruiker wil ik een lobby van actieve games zien waarbij ik kan toeschouwen
    
-- [ ]  Als gebruiker wil ik een lobby van mijn gespeelde games kunnen zien
+- [x]  Als gebruiker wil ik een lobby van mijn gespeelde games kunnen zien
 
 - [x] Als gebruiker wil ik een tab binnen een game zien met het gameboard
    
-- [ ] Als gebruiker wil ik een tab binnen een game zien met alle gespeelde zetten 
+- [x] Als gebruiker wil ik een tab binnen een game zien met alle gespeelde zetten 
 
 
 
 #####Sprint 5:
-- [ ]  Als gebruiker wil ik een game in minstens 2 verschillende thema’s kunnen spelen.
+- [x]  Als gebruiker wil ik een game in minstens 2 verschillende thema’s kunnen spelen.
    
-- [ ] Als ontwikkelaar wil ik mijn css kunnen genereren aan de hand van verschillende spritesheets aan te moeten passen. 
+- [x] Als ontwikkelaar wil ik mijn css kunnen genereren aan de hand van verschillende spritesheets aan te moeten passen. 
 
 
 
 
 ###Beoordelingscriteria
-- Sprint 1 t/m 5 geïmplementeerd
-- Client side validatie op matches.
-- AngularJS 
-  - Minstens 1 directive met tests
-  - Minstens 1 filter met tests
-  - Minstens 1 factory/service met tests
-  - Met routing
-- SASS
-  - 2 templates (css-bestanden) afwisselbaar
-  - Minstens 1 mixin
-  - Variabelen onderhoudbaar
+- [ ] Sprint 1 t/m 5 geïmplementeerd
+- [x] Client side validatie op matches.
+- [x] AngularJS 
+  - [x] Minstens 1 directive met tests
+  - [x] Minstens 1 filter met tests
+  - [x] Minstens 1 factory/service met tests
+  - [x] Met routing
+- [x] SASS
+  - [x] 2 templates (css-bestanden) afwisselbaar
+  - [x] Minstens 1 mixin
+  - [x] Variabelen onderhoudbaar
 
 ####Notes:
 - We verwachten dat jullie bij het assessment een complete mooi vormgegeven applicatie opleveren!

@@ -214,6 +214,44 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
             console.log('whaaat moooore?, There is no mooore!!!!')
         }
     };
+    
+    this.isTileClickable = function(tile){
+
+		var blockedFromLeft = false;
+	    var blockedFromRight = false;
+	    var blockedFromTop = false;
+        var gtile = $scope.gameTiles;
+	    for(s in gtile){
+	    	if(gtile[s].match == undefined){
+	    		if(tile == gtile[s])
+	            return true
+
+		        // width of tile is 2 px
+		        // check position of array tile is xPos + 2 because xPos and xPos + 1 are the tile
+		        if((gtile[s].xPos + 2) == tile.xPos && tile.zPos <=  gtile[s].zPos && (gtile[s].yPos == tile.yPos || tile.yPos == gtile[s].yPos + 1 || tile.yPos == gtile[s].yPos-1)){
+		            // its blocked from the left
+		            blockedFromLeft = true;
+		        }
+		        if((gtile[s].xPos - 2) == tile.xPos && tile.zPos <= gtile[s].zPos && (gtile[s].yPos == tile.yPos || tile.yPos == gtile[s].yPos + 1 || tile.yPos == gtile[s].yPos-1)){
+		            // its blocked from the right
+		            blockedFromRight = true;
+		        }
+		        if(gtile[s].zPos > tile.zPos
+		            && ( (gtile[s].xPos + 1 == tile.xPos || gtile[s].xPos == tile.xPos || gtile[s].xPos - 1 == tile.xPos)
+		            && (gtile[s].yPos + 1 == tile.yPos || gtile[s].yPos == tile.yPos || gtile[s].yPos - 1 == tile.yPos)) ){
+		            blockedFromTop = true;
+		        }
+	    	}
+	    	
+	    })
+	    if(blockedFromTop){
+	        return true;
+	    } else if(blockedFromRight && blockedFromLeft){
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
 
 
 };
