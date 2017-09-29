@@ -1,10 +1,7 @@
 module.exports = function () {
         var currentUser = {
-            "id": "rjong14", // Avans username
+            "id": "",
             "token": ""
-//            "name": "Rick de Jong", // fullname
-//            "email": "rjong14@avans.nl", // avans e-mail
-//            "nickname": "Default" // maybe filled later?
         };
 
        	var username = null;

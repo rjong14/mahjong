@@ -13,7 +13,4 @@ module.exports = function ($location, $routeParams, $timeout) {
                 console.log('inTime')
                 window.location.reload();
       }, 3000);
-
-        //$location.url('#/');
-        //window.location.reload();
     };

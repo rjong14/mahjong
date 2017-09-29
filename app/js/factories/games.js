@@ -1,6 +1,4 @@
 module.exports = function ($http, apiurl) {
-
-
     return {
         // GET
         all: function (callback) {
@@ -56,6 +54,5 @@ module.exports = function ($http, apiurl) {
         deleteGame: function (callback, id) {
             $http.delete(apiurl.base() + "/games/" + id).success(callback);
         }
-
     };
 };

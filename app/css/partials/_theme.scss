@@ -1,9 +1,16 @@
-@mixin theme($name, $primary, $bgColor-pr, $bgColor-sec, $fgColor-pr, $fgColor-sec) {
+@mixin theme($name, $primary, $secondary, $bgColor-pr, $bgColor-sec, $fgColor-pr, $fgColor-sec) {
+    .colors .#{$name} {
+        border-color: $primary !important;
+    }
     body.#{$name} {
         background: $bgColor-pr;
         color: $fgColor-pr;
+        button {
+            background-color: $secondary;
+            box-shadow: 1px 1px 2px $fgColor-pr,;
+        }
         .navbar {
-            background-color: $bgColor-sec;
+            background-color: $secondary;
             .navbar-header .navbar-brand {
                 color: $fgColor-sec;
                 font-size: 16px;
@@ -16,14 +23,14 @@
             }
         }
         .panel-setting {
-            background-color: $primary;
-            color: $fgColor-sec;
+            background-color: $bgColor-sec;
+            color: $fgColor-pr;
         }
         .panel-game {
-            background-color: $bgColor-sec;
+            background-color: $primary;
             color: $fgColor-sec;
         }
     }
 }
 
-@include theme("odd", blue, 'blue', 'green', 'black', 'grey');
+//@include theme("odd", blue, 'blue', 'green', 'black', 'grey');

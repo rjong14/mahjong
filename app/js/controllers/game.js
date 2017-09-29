@@ -1,45 +1,42 @@
-module.exports = function ($scope, Users, Games, Socket, $timeout) {
+module.exports = function ($filter, $scope, Users, Games, Socket, $timeout) {
     console.log("gameC");
     this.lol = "hallo games";
     var curGame = "";
     var pages = 0;
     var curPage = 0;
+
+    $scope.cheatmode = false;
+    $scope.gamestate = "";
     $scope.pagemode = "playing"
     $scope.errMsg = "";
 
+    $scope.errTiles = function (msg) {
+        console.error(msg);
+        $scope.errMsg = msg
+        console.log($scope.errMsg)
+        $timeout(function () {
+            $scope.errMsg = ""
+        }, 4000);
+    };
+
     $scope.match = {
-        tile1: {
-            id: "",
-            name: "",
-            suit: "",
-            matcheswhole: false
-        },
-        tile2: {
-            id: "",
-            name: "",
-            suit: "",
-            matcheswhole: false
-        }
+        tile1: {},
+        tile2: {}
     }
     $scope.clearMatch = function () {
         $scope.match = {
-            tile1: {
-                id: "",
-                name: "",
-                suit: "",
-                matcheswhole: false
-            },
-            tile2: {
-                id: "",
-                name: "",
-                suit: "",
-                matcheswhole: false
-            }
+            tile1: {},
+            tile2: {}
         }
     }
     $scope.loadTiles = function () {
         Games.getTiles(function (response) {
             $scope.gameTiles = response
+            if ($scope.isGameAlive()) {
+                $scope.gamestate = "Game is playable"
+            } else {
+                $scope.gamestate = "no playable tiles left"
+            }
         }, curGame);
         Games.getMatches(function (response) {
             if (response != []) {
@@ -48,21 +45,41 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
         }, curGame)
     }
 
+    $scope.matches = function (tile1, tile2) {
+        if (tile1.tile.matchesWholeSuit == tile2.tile.matchesWholeSuit) {
+            if (tile1.tile.matchesWholeSuit == true) {
+                if (tile1.tile.suit == tile2.tile.suit) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                if (tile1.tile.suit == tile2.tile.suit && tile1.tile.name == tile2.tile.name) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        } else {
+            return false
+        }
+    }
+
     $scope.matchTiles = function () {
         var m = $scope.match
-        if (m.tile1.matcheswhole == m.tile2.matcheswhole) {
-            if (m.tile1.matcheswhole == 'true') {
+        if (m.tile1.tile.matchesWholeSuit == m.tile2.tile.matchesWholeSuit) {
+            if (m.tile1.tile.matchesWholeSuit == true) {
                 console.log('wholesuit')
-                if (m.tile1.suit == m.tile2.suit) {
+                if (m.tile1.tile.suit == m.tile2.tile.suit) {
                     console.log('suit match')
-                    $scope.sendTiles(m.tile1.id, m.tile2.id)
+                    $scope.sendTiles(m.tile1._id, m.tile2._id)
                 } else {
                     console.log('no suit match')
                     $scope.errTiles('no suit match')
                 }
             } else {
-                if (m.tile1.suit == m.tile2.suit && m.tile1.name == m.tile2.name) {
-                    $scope.sendTiles(m.tile1.id, m.tile2.id)
+                if (m.tile1.tile.suit == m.tile2.tile.suit && m.tile1.tile.name == m.tile2.tile.name) {
+                    $scope.sendTiles(m.tile1._id, m.tile2._id)
                 } else {
                     console.log('no full match')
                     $scope.errTiles('no full match')
@@ -74,17 +91,81 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
         }
     }
 
+    $scope.isGameAlive = function () {
+        var one = {};
+        var two = {};
+        var ti = $filter('matchable')($scope.gameTiles);
+        for (le in ti) {
+            one = ti[le]
+            if ($scope.isTileClickable(one)) {
+                for (me in ti) {
+                    two = ti[me]
+                    if (one._id != two._id && $scope.isTileClickable(two)) {
+                        if ($scope.matches(one, two)) {
+                            console.log('match found')
+                            console.log('angular.element($0).scope().sendTiles("' + one._id + '", "' + two._id + '");')
+                            if ($scope.cheatmode) {
+                                $scope.errMsg = "cheating"
+                                $timeout(function () {
+                                    $scope.sendTiles(one._id, two._id)
+                                    $scope.errMsg = "cheating"
+                                }, 7000);
+                            }
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+
+    $scope.isGameTileClickable = function (tile) {
+        if ($scope.isTileClickable(tile)) {
+            return true;
+        } else {
+            $scope.errTiles("not clickable")
+            $scope.$apply()
+            return false;
+        }
+    }
+    $scope.isTileClickable = function (tile) {
+
+        var blockedFromLeft = false;
+        var blockedFromRight = false;
+        var blockedFromTop = false;
+        var gtile = $filter('matchable')($scope.gameTiles);
+        for (s in gtile) {
+            if ((gtile[s].xPos + 2) == tile.xPos && tile.zPos <= gtile[s].zPos && (gtile[s].yPos == tile.yPos || tile.yPos == gtile[s].yPos + 1 || tile.yPos == gtile[s].yPos - 1)) {
+                blockedFromLeft = true;
+            }
+            if ((gtile[s].xPos - 2) == tile.xPos && tile.zPos <= gtile[s].zPos && (gtile[s].yPos == tile.yPos || tile.yPos == gtile[s].yPos + 1 || tile.yPos == gtile[s].yPos - 1)) {
+                blockedFromRight = true;
+            }
+            if (gtile[s].zPos > tile.zPos &&
+                ((gtile[s].xPos + 1 == tile.xPos || gtile[s].xPos == tile.xPos || gtile[s].xPos - 1 == tile.xPos) &&
+                    (gtile[s].yPos + 1 == tile.yPos || gtile[s].yPos == tile.yPos || gtile[s].yPos - 1 == tile.yPos))) {
+                blockedFromTop = true;
+            }
+        };
+        if (blockedFromTop) {
+            return false;
+        } else if (blockedFromRight && blockedFromLeft) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     $scope.sendTiles = function (tile1, tile2) {
-        console.log('before match')
         Games.matchTiles(function (response) {
-            console.log('dooo maaatch')
             if (response.data.message) {
                 console.log(response)
                 $scope.errTiles(response.data.message)
             } else {
                 console.log(response)
                 if (response.data[0].match) {
-                    $scope.loadTiles()
+                    //$scope.loadTiles()
                 } else {
                     $scope.errTiles('undefined error')
                 }
@@ -93,14 +174,6 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
         }, curGame, tile1, tile2)
         $scope.clearMatch()
     };
-    $scope.errTiles = function (msg) {
-        $scope.errMsg = msg
-        $timeout(function () {
-            $scope.errMsg = ""
-        }, 4000);
-    };
-
-
     $scope.load = function () {
         console.log("load");
         var currentUser = {};
@@ -120,25 +193,14 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
                 $scope.game = response
             }, curGame);
             $scope.gameTiles = "";
-            Games.getTiles(function (response) {
-                $scope.gameTiles = response
-            }, curGame);
-            $scope.gameMatches = ""
-            Games.getMatches(function (response) {
-                if (response != []) {
-                    $scope.gameMatches = response
-                }
-            }, curGame)
+            $scope.gameMatches = "";
+            $scope.loadTiles();
             if (Socket.connect(curGame)) {
                 Socket.on(function (data) {
                     console.log('match made')
                     console.log(data)
                     $scope.loadTiles();
                     console.log('lol')
-                    $timeout(function () {
-                        console.log('load Tiles')
-                        $scope.loadTiles();
-                    }, 500);
                 }, "match")
             }
         } else {
@@ -206,7 +268,6 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
             console.log('cur: ' + curPage)
             Games.getPage(function (response) {
                 var obj = JSON.stringify($scope.games).slice(0, -1) + ", " + JSON.stringify(response).slice(1);
-                //console.log(obj)
                 $scope.games = JSON.parse(obj)
                 curPage++
             }, curPage)
@@ -214,44 +275,4 @@ module.exports = function ($scope, Users, Games, Socket, $timeout) {
             console.log('whaaat moooore?, There is no mooore!!!!')
         }
     };
-    
-    this.isTileClickable = function(tile){
-
-		var blockedFromLeft = false;
-	    var blockedFromRight = false;
-	    var blockedFromTop = false;
-        var gtile = $scope.gameTiles;
-	    for(s in gtile){
-	    	if(gtile[s].match == undefined){
-	    		if(tile == gtile[s])
-	            return true
-
-		        // width of tile is 2 px
-		        // check position of array tile is xPos + 2 because xPos and xPos + 1 are the tile
-		        if((gtile[s].xPos + 2) == tile.xPos && tile.zPos <=  gtile[s].zPos && (gtile[s].yPos == tile.yPos || tile.yPos == gtile[s].yPos + 1 || tile.yPos == gtile[s].yPos-1)){
-		            // its blocked from the left
-		            blockedFromLeft = true;
-		        }
-		        if((gtile[s].xPos - 2) == tile.xPos && tile.zPos <= gtile[s].zPos && (gtile[s].yPos == tile.yPos || tile.yPos == gtile[s].yPos + 1 || tile.yPos == gtile[s].yPos-1)){
-		            // its blocked from the right
-		            blockedFromRight = true;
-		        }
-		        if(gtile[s].zPos > tile.zPos
-		            && ( (gtile[s].xPos + 1 == tile.xPos || gtile[s].xPos == tile.xPos || gtile[s].xPos - 1 == tile.xPos)
-		            && (gtile[s].yPos + 1 == tile.yPos || gtile[s].yPos == tile.yPos || gtile[s].yPos - 1 == tile.yPos)) ){
-		            blockedFromTop = true;
-		        }
-	    	}
-	    	
-	    };
-	    if(blockedFromTop){
-	        return true;
-	    } else if(blockedFromRight && blockedFromLeft){
-	        return true;
-	    } else {
-	        return false;
-	    }
-	}
-
-
 };

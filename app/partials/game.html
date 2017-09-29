@@ -120,12 +120,13 @@
                 <div class="settings-panel">
                     <strong>Players: </strong>
                     <span class="players" ng-repeat="player in game.players">{{player.name}}, </span>
+                    <h4> Game state: {{ gamestate }}</h4>
                     <h2 class="errmsg" ng-if="errMsg">{{errMsg}}</h2>
                 </div>
                 <div class="panel-body gamepanel" ng-show="gameTiles">
 
                     <div class="tileContainer">
-                        <tile class="tile" data-all="{{tile}}" data="{{ tile._id }}" data-matches="{{ tile.tile.matchesWholeSuit }}" data-suit="{{ tile.tile.suit }}" data-name="{{ tile.tile.name }}" ng-repeat="tile in gameTiles | matched" style="left: {{ tile.xPos *30+350 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
+                        <tile class="tile" data="{{tile}}" data="{{ tile._id }}" ng-repeat="tile in gameTiles | matchable" style="left: {{ tile.xPos *30+350 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
                     </div>
                 </div>
             </div>
@@ -138,8 +139,9 @@
                 <div class="panel-heading"><span class="glyphicon glyphicon-stats"></span> Matched
                 </div>
                 <div class="panel-body matchpanel">
-                <div class="matchContainer">
-                    <tile class="tile" data="{{ tile._id }}" ng-repeat="tile in gameMatches" />
+                <div class="matchContainer" ng-repeat="player in game.players">
+                    <h3>found by: {{player.name}}</h3>
+                    <tile class="tile" data="{{ tile._id }}" ng-repeat="tile in gameMatches | matchedby: player._id" />
                 </div>
                 </div>
             </div>

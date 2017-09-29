@@ -7,14 +7,14 @@ playersTest.push({'_id': 'test4@avans.nl'});
 
 describe("Filters",() => {
 	let containsFilter;
-    let matchedFilter;
+    let matchableFilter;
 
     beforeEach(module('App'));
 	
 
-	beforeEach(inject(function (_matchedFilter_, _containsFilter_)
+	beforeEach(inject(function (_matchableFilter_, _containsFilter_)
 	{
-		matchedFilter = _matchedFilter_;
+		matchableFilter = _matchableFilter_;
 		containsFilter = _containsFilter_;
 	}));
 

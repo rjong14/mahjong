@@ -22,17 +22,17 @@
          Deze tegels kan je ophalen vanaf de server via de volgende URL: https://mahjongmayhem.herokuapp.com/game.
          Deze game is al afgerond, maar je kan hier nog wel de tegels van zien. Voor deze sprint is dit handig ze
 
-- [ ] Als gebruiker wil ik kunnen aangeven dat ik een match zie.
+- [x] Als gebruiker wil ik kunnen aangeven dat ik een match zie. (sockets??)
          Doe dit dus client side zodat we dit later kunnen invullen
 
-- [ ] Als gebruiker wil ik feedback krijgen als er geen matches mogelijk meer zijn.
+- [x] Als gebruiker wil ik feedback krijgen als er geen matches mogelijk meer zijn.
 
 
 
 #####Sprint 3:
 - [x] Als gebruiker wil ik tegels in een visueel bord kunnen zien
 
-- [ ] Als gebruiker wil ik de gematchte tegels per speler zien
+- [x] Als gebruiker wil ik de gematchte tegels per speler zien
 
 - [x] Als gebruiker wil ik tegels die nog niet gematched zijn, kunnen matchen
 
@@ -60,7 +60,7 @@
 
 
 ###Beoordelingscriteria
-- [ ] Sprint 1 t/m 5 geïmplementeerd
+- [x] Sprint 1 t/m 5 geïmplementeerd
 - [x] Client side validatie op matches.
 - [x] AngularJS 
   - [x] Minstens 1 directive met tests

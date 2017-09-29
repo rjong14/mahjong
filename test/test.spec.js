@@ -1,4 +1,3 @@
-
 let som = 1+1
 
 describe('do a test', () => {

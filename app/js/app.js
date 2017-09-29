@@ -11,9 +11,11 @@ var gameController = require('./controllers/game.js');
 var callbackController = require('./controllers/callback.js');
 var tileDirective = require('./directives/tile.js');
 var matchableDirective = require('./directives/matchable.js');
-var scrolledDirective = require('./directives/scrolled.js')
+var scrolledDirective = require('./directives/scrolled.js');
+var themeChangerDirective = require('./directives/themeChanger.js');
 var containsFilter = require('./filters/contains.js');
-var matchedFilter = require('./filters/matched.js');
+var matchableFilter = require('./filters/matchable.js');
+var matchedByFlter = require('./filters/matchedBy.js')
 var routerConfig = require('./configs/router.js');
 
 // Create your app
@@ -35,7 +37,9 @@ angular.module('App', [
     .directive('tile', tileDirective)
     .directive('matchable', matchableDirective)
     .directive('scrolled', scrolledDirective)
+    .directive('themechanger', themeChangerDirective)
 // Other
     .filter('contains', containsFilter)
-    .filter('matched', matchedFilter)
+    .filter('matchable', matchableFilter)
+    .filter('matchedby', matchedByFlter)
     .config(routerConfig);

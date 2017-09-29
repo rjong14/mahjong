@@ -1,7 +1,5 @@
 module.exports = function ($scope, Users) {
-        //var username = window.localStorage.getItem('username');
-        //var token = window.localStorage.getItem('token');
-
+        $scope.theme = "dash";
         var currentUser = {};
         currentUser.id = window.localStorage.getItem('username');
         currentUser.token = window.localStorage.getItem('token');
@@ -13,9 +11,6 @@ module.exports = function ($scope, Users) {
         this.lol = "Hello World";
         this.user = Users.all();
         this.loggedIn = Users.isLoggedIn();
-        console.log(Users.isLoggedIn());
-        console.log("user " + currentUser.id);
-        console.log("token " + currentUser.token);
         this.login = function () {
             window.location.href = "http://mahjongmayhem.herokuapp.com/auth/avans?callbackUrl=http://localhost:8080/%23/oauthcallback";
         };
@@ -24,6 +19,4 @@ module.exports = function ($scope, Users) {
             window.localStorage.clear();
             window.location.href = "http://localhost:8080/";
         };
-
-        //$('body').prepend('<p>wooooooooooooooo</p>');
     };
