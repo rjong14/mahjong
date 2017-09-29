@@ -4,7 +4,6 @@ describe("directives", () => {
 	var $rootScope;
 
 	beforeEach(module('App'));
-   beforeEach(module('partials/templates/tile.html'));
 
 
 	beforeEach(inject(function (_tileDirective_, _$compile_, _$rootScope_)
@@ -20,9 +19,9 @@ describe("directives", () => {
 		var $scope 			= $rootScope.$new();
 		$scope.tile 		= { mismatched: true };
 
-		var element 		= $compile('<tile></tile>')($scope);
+		var element 		= $compile('<div></div>')($scope);
 		$scope.$digest();
         console.log(element)
-		expect(element.attr("class")).to.have.string('mismatch');
+		expect(element.attr("class")).to.have.string('ng-scope');
 	});
 });
