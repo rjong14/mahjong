@@ -126,7 +126,7 @@
                 <div class="panel-body gamepanel" ng-show="gameTiles">
 
                     <div class="tileContainer">
-                        <tile class="tile" data="{{tile}}" data="{{ tile._id }}" ng-repeat="tile in gameTiles | matchable" style="left: {{ tile.xPos *30+350 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
+                        <tile class="tile" data="{{tile}}" data="{{ tile._id }}" ng-repeat="tile in gameTiles | matchable" style="left: {{ tile.xPos *30+350+tile.zPos*3 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
                     </div>
                 </div>
             </div>
