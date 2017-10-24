@@ -9,7 +9,16 @@ module.exports = function ($filter, $scope, Users, Games, Socket, $timeout) {
     $scope.gamestate = "";
     $scope.pagemode = "playing"
     $scope.errMsg = "";
+    $scope.msg = "";
+    $scope.loading = false;
 
+    $scope.setMsg = function (msg) {
+        console.log(msg);
+        $scope.msg = msg
+        $timeout(function () {
+            $scope.msg = ""
+        }, 2000);
+    }
     $scope.errTiles = function (msg) {
         console.error(msg);
         $scope.errMsg = msg
@@ -17,8 +26,11 @@ module.exports = function ($filter, $scope, Users, Games, Socket, $timeout) {
         $timeout(function () {
             $scope.errMsg = ""
         }, 4000);
-    };
-
+    }
+    $scope.el = {
+        e1: {},
+        e2: {}
+    }
     $scope.match = {
         tile1: {},
         tile2: {}
@@ -28,14 +40,23 @@ module.exports = function ($filter, $scope, Users, Games, Socket, $timeout) {
             tile1: {},
             tile2: {}
         }
+        $scope.el = {
+            e1: {},
+            e2: {}
+        }
     }
     $scope.loadTiles = function () {
         Games.getTiles(function (response) {
             $scope.gameTiles = response
-            if ($scope.isGameAlive()) {
-                $scope.gamestate = "Game is playable"
+            $scope.loading = false
+            if (curGame.state == 'open') {
+                $scope.gamestate = "open"
             } else {
-                $scope.gamestate = "no playable tiles left"
+                if ($scope.isGameAlive()) {
+                    $scope.gamestate = "Game is playable"
+                } else {
+                    $scope.gamestate = "no playable tiles left"
+                }
             }
         }, curGame);
         Games.getMatches(function (response) {
@@ -157,6 +178,7 @@ module.exports = function ($filter, $scope, Users, Games, Socket, $timeout) {
         }
     }
 
+
     $scope.sendTiles = function (tile1, tile2) {
         Games.matchTiles(function (response) {
             if (response.data.message) {
@@ -197,10 +219,9 @@ module.exports = function ($filter, $scope, Users, Games, Socket, $timeout) {
             $scope.loadTiles();
             if (Socket.connect(curGame)) {
                 Socket.on(function (data) {
-                    console.log('match made')
-                    console.log(data)
+                    $scope.loading = true;
                     $scope.loadTiles();
-                    console.log('lol')
+                    console.log('wss match')
                 }, "match")
             }
         } else {
@@ -233,6 +254,7 @@ module.exports = function ($filter, $scope, Users, Games, Socket, $timeout) {
     };
     this.startGame = function () {
         Games.startGame(function (response) {
+            $scope.setMsg('Game started!');
             $scope.load()
         }, curGame);
     };
@@ -245,20 +267,31 @@ module.exports = function ($filter, $scope, Users, Games, Socket, $timeout) {
         console.log(data);
         Games.newGame(function (response) {
             $scope.load()
+            $scope.setMsg('Game created!');
         }, data);
     };
     this.joinGame = function (id) {
         Games.joinGame(function (response) {
+            $scope.setMsg('Game joined!');
+            curGame = ""
             $scope.load()
         }, id);
     };
     this.leaveGame = function (id) {
         Games.leaveGame(function (response) {
+            if(response.message == 'Not implemented yet'){
+                $scope.setMsg('Stijn fix pLoX: \n' + response.message);
+            }
+            console.log(response)
+            curGame = "";
             $scope.load()
         }, id);
     };
     this.deleteGame = function (id) {
-        Games.leaveGame(function (response) {
+        console.log('try delete')
+        Games.deleteGame(function (response) {
+            $scope.setMsg('Game deleted!');
+            curGame = "";
             $scope.load()
         }, id);
     };

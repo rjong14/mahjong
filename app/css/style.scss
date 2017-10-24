@@ -12,6 +12,31 @@
 
 .errmsg {
     color: $dash-red;
+    font-size: 69px;
+    background-color: rgba(240, 248, 255, 0.7);
+    position: fixed;
+    top: 280px;
+    left: 730px;
+    z-index: 9002;
+}
+
+.okmsg {
+    color: $dash-green;
+    font-size: 69px;
+    background-color: rgba(240, 248, 255, 0.7);
+    position: fixed;
+    top: 280px;
+    left: 730px;
+    z-index: 9002;
+}
+
+.game-loading {
+    position: fixed;
+    height: 512px;
+    width: 512px;
+    top: 210px;
+    left: 640px;
+    z-index: 9001;
 }
 
 .tileContainer {
@@ -72,5 +97,5 @@
 }
 
 .tile:hover:after {
-    opacity: 1;
+    opacity: 1 !important;
 }

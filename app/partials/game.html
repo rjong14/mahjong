@@ -53,6 +53,9 @@
                     <ul>
                         <li ng-repeat="game in mygames" ng-click="gameCtrl.setCurGame(game.id)">
                             <strong ng-if="game.state == 'playing'">STARTED</strong>
+                            <strong ng-if="game.state == 'finished'">FINISHED</strong>
+                            <strong ng-if="game.state == 'open' && game.createdBy._id != mCtrl.user.id">JOINED</strong>
+                            <strong ng-if="game.state == 'open' && game.createdBy._id == mCtrl.user.id">OPEN</strong>
                             <strong>Game: {{game.layout}}</strong>
                             <small>Creator: {{game.createdBy.name}}</small>
                         </li>
@@ -68,10 +71,13 @@
                     <div class="game-info" ng-show="game">
                         Template: {{game.gameTemplate.id}} <br />
                         <small> createdBy: {{game.createdBy.name}}</small> <br />
-                        <button ng-show="game.state == 'open'&& game.createdBy._id == mCtrl.user.id" class="btn" ng-click="gameCtrl.startGame()">Start</button>
-                        <button ng-show="game.state != 'playing'" ng-if="game.state == 'open' && game.players | contains: { mode : 'not', data : mCtrl.user.id}" class="btn" ng-click="gameCtrl.joinGame(game.id)">join</button>
-                        <button ng-if="game.state == 'open' && game.createdBy._id != mCtrl.user.id && game.players | contains: { data : mCtrl.user.id}" class="btn" ng-click="leaveGame(game.id)">leave</button>
-                        <button ng-if="game.state == 'open' && game.createdBy._id == mCtrl.user.id && game.players | contains: { data : mCtrl.user.id}" class="btn" ng-click="deleteGame(game.id)">Delete</button>
+                        <small> gameState: {{game.state}}</small> <br />
+                        <div ng-if="game.state != 'finished' && game.state != 'playing'">
+                            <button ng-show="game.state == 'open'&& game.createdBy._id == mCtrl.user.id" class="btn" ng-click="gameCtrl.startGame()">Start</button>
+                            <button ng-if="game.state == 'open' && game.players | contains: { mode : 'not', data : mCtrl.user.id}" class="btn" ng-click="gameCtrl.joinGame(game.id)">join</button>
+                            <button ng-if="game.state == 'open' && game.createdBy._id != mCtrl.user.id && game.players | contains: { data : mCtrl.user.id}" class="btn" ng-click="gameCtrl.leaveGame(game.id)">leave</button>
+                            <button ng-if="game.state == 'open' && game.createdBy._id == mCtrl.user.id && game.players | contains: { data : mCtrl.user.id}" class="btn" ng-click="gameCtrl.deleteGame(game.id)">Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,6 +87,7 @@
     <!--END ROW1  -->
     <div class="row">
         <div ng-show="!game" class="col-md-12">
+            <h1 class="okmsg" ng-if="msg">{{msg}}</h1>
             <div class="panel panel-setting">
                 <div class="panel-heading"><span class="glyphicon glyphicon-list"></span>Create new game</div>
                 <div class="panel-body newgame">
@@ -121,13 +128,13 @@
                     <strong>Players: </strong>
                     <span class="players" ng-repeat="player in game.players">{{player.name}}, </span>
                     <h4> Game state: {{ gamestate }}</h4>
-                    <h2 class="errmsg" ng-if="errMsg">{{errMsg}}</h2>
                 </div>
                 <div class="panel-body gamepanel" ng-show="gameTiles">
-
+                    <h1 class="errmsg" ng-if="errMsg">{{errMsg}}</h1>
                     <div class="tileContainer">
-                        <tile class="tile" data="{{tile}}" data="{{ tile._id }}" ng-repeat="tile in gameTiles | matchable" style="left: {{ tile.xPos *30+350+tile.zPos*3 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
+                        <tile class="tile" data="{{tile}}" data="{{ tile._id }}" ng-repeat="tile in gameTiles | matchable" style="left: {{ tile.xPos *30+400+tile.zPos*3 }}px; top: {{ tile.yPos *45 + 100 + tile.zPos *3 }}px; z-index: {{ tile.zPos * 100 + tile.xPos + tile.yPos }};" matchable />
                     </div>
+                    <span ng-if="loading" class="game-loading" style="background-image: url('/img/loading.gif');"></span>
                 </div>
             </div>
         </div>

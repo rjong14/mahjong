@@ -28,7 +28,7 @@ module.exports = function (grunt) {
                 // This copies all the html and css into the dist/ folder
                 expand: true,
                 cwd: 'app/',
-                src: ['**/*.html', '**/**/*.html', '**/*.png'],
+                src: ['**/*.html', '**/**/*.html', '**/*.png', '**/*.gif'],
                 dest: 'dist/',
             }
         },
@@ -59,5 +59,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // default
-    grunt.registerTask('default', ['browserify', 'copy']);
+    grunt.registerTask('default', ['browserify', 'copy', 'sass']);
 };
