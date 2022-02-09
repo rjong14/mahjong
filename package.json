@@ -29,7 +29,7 @@
     "karma-sinon": "^1.0.5",
     "karma-verbose-reporter": "0.0.6",
     "mocha": "^2.2.5",
-    "node-sass": "^4.5.3",
+    "node-sass": "^7.0.0",
     "sass": "^1.0.0-beta.2",
     "sinon": "~1.14.1"
   },
